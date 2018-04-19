@@ -52,6 +52,14 @@ class BtfxWss:
         return self.conn.channel_configs
 
     @property
+    def account_all(self):
+        """Return queue containing all wss messages associated with the user account.
+        
+        :return: Queue()
+        """
+        return self.queue_processor.account['all']
+
+    @property
     def orders(self):
         """Return queue containing open orders associated with the user account.
         
