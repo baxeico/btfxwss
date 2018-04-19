@@ -277,11 +277,12 @@ class QueueProcessor(Thread):
         :param ts:
         :return:
         """
-
+        self.log.debug("_handle_account: %s - %s", data, ts)
         chan_id, *data = data
         channel_identifier = self.account_channel_names[data[0]]
         entry = (data, ts)
         self.account[channel_identifier].put(entry)
+        self.account['all'].put(entry)
 
     def _handle_ticker(self, dtype, data, ts):
         """Adds received ticker data to self.tickers dict, filed under its channel
