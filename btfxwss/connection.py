@@ -422,13 +422,12 @@ class WebSocketConnection(Thread):
             self.log.info("API version: %i", data['version'])
             return
 
-        code = str(data['code'])
         try:
-            self.log.info(info_message[code])
-            codes[code]()
+            self.log.info(info_message[data['code']])
+            codes[data['code']]()
         except KeyError as e:
             self.log.exception(e)
-            self.log.error("Unknown Info code %s!", code)
+            self.log.error("Unknown Info code %s!", data['code'])
             raise
 
     def _error_handler(self, data):
